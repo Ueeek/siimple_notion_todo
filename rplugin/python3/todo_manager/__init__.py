@@ -11,7 +11,7 @@ _command_prefix="NotionTodo"
 
 @pynvim.plugin
 class TodoAPI:
-    keys:Dict
+    keys:Dict=dict()
     nvim:pynvim.Nvim
     client:NotionClient
     page:Any
