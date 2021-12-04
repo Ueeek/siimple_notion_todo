@@ -31,13 +31,17 @@ class TodoAPI:
                 self.keys[key]=os.getenv("NOTION_TODO_{}".format(key))
 
     def get_members(self):
-        cur_todos=[child.title for child in self.page.children]
+        cur_todos=[(child.title,child.checked) for child in self.page.children]
         return cur_todos
 
     def prependTodos(self):
         self.nvim.command('setlocal modifiable')
-        for todo in self.todo_list:
-            self.nvim.current.buffer.append(todo)
+        for todo,checked in self.todo_list:
+            if checked:
+                preseq="[x]:"
+            else:
+                preseq="[ ]:"
+            self.nvim.current.buffer.append(preseq+todo)
         self.nvim.current.window.cursor=(1,1)
         self.nvim.command('setlocal nomodifiable')
 
