@@ -18,6 +18,7 @@ class TodoAPI:
     todo_list:List
 
     def __init__(self,nvim:pynvim.Nvim):
+        self.nvim=nvim
         self.set_api_key()
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
         self.page = self.client.get_block(self.keys["PAGE_URL"])
@@ -80,7 +81,7 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"TodoList")
     def todoList(self):
-        if self.nvim.current.window or True:
+        if len(self.nvim.current.window )or True:
             self.nvim.command('setlocal splitright')
             self.nvim.command('vnew')
             self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
