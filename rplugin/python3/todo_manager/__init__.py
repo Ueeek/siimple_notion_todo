@@ -34,6 +34,13 @@ class TodoAPI:
         cur_todos=[child.title for child in self.page.children]
         return cur_todos
 
+    def prependTodos(self):
+        self.nvim.command('setlocal modifiable')
+        for todo in self.todo_list:
+            self.nvim.current.buffer.append(todo,0)
+        self.nvim.current.window.cursor=(1,1)
+        self.nvim.command('setlocal nomodifiable')
+
     @pynvim.command(_command_prefix+"AddTodo",nargs=1)
     def add_new_todo(self,title):
         if len(title)==0:
@@ -49,8 +56,16 @@ class TodoAPI:
         child.remove()
         self.echo("remove {}".format(removing_title))
 
+
     @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
     def toggle_checked(self,idx):
         child = self.page.children[int(idx)]
         child.checked = not child.checked
         self.echo("Toggle {}".format(child.title))
+
+    @pynvim.command(_command_prefix+"TodoList")
+    def todoList(self):
+        self.nvim.command('setlocal splitright')
+        self.nvim.command('vnew')
+        self.nvim.command('setlocal buftype=nofiile bufhidden=hide nolist nonumber nomodifiable wrap')
+        self.prependTodos(self.todo_list).generate(self.nvim.current.window.width)
