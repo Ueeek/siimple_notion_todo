@@ -10,10 +10,13 @@ _command_prefix="NotionTodo"
 
 @pynvim.plugin
 class TodoAPI:
+    keys:Dict
+    nvim:pynvim.Nvim
+    client:NotionClient
+    page:Any
+    todo_list:List
 
-    def __init__(self,nvim):
-        self.keys=dict()
-        self.nvim=nvim
+    def __init__(self,nvim:pynvim.Nvim):
         self.set_api_key()
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
         self.page = self.client.get_block(self.keys["PAGE_URL"])
@@ -24,8 +27,6 @@ class TodoAPI:
         self.page = self.client.get_block(self.keys["PAGE_URL"])
         self.todo_list=self.get_members()
 
-    def echo(self,msg):
-        self.nvim.command("echo '{}'".format(msg))
 
     def set_api_key(self):
         keys=["TOKEN_V2","PAGE_URL"]
@@ -35,7 +36,7 @@ class TodoAPI:
             else:
                 self.keys[key]=os.getenv("NOTION_TODO_{}".format(key))
 
-    def get_members(self):
+    def get_members(self)->List:
         cur_todos=[(child.title,child.checked) for child in self.page.children if isinstance(child,TodoBlock)]
         
         return cur_todos
