@@ -87,7 +87,7 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"TodoList")
     def todoList(self):
-        cur_win_id = self.nvim.call('win_getid()')
+        cur_win_id = self.nvim.call('win_getid')
         if cur_win_id==self.view_window_id:
             self.echo("you already todolist")
         elif self.view_window_id!=-1:
@@ -99,6 +99,6 @@ class TodoAPI:
             self.nvim.command('vnew')
             self.nvim.command('vertical resize 30')
             self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
-            self.view_window_id = self.nvim.call('win_getid()')
+            self.view_window_id = self.nvim.call('win_getid')
             self.echo("create todolist win_id={}".format(self.view_window_id))
             self.show_list()
