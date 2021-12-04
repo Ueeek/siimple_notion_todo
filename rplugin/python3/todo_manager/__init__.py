@@ -19,7 +19,7 @@ class TodoAPI:
         self.page = self.client.get_block(self.keys["PAGE_URL"])
 
     def echo(self,msg):
-        self.nvim.command("echo '" + msg + "'")
+        self.nvim.command("echo '" + str(msg) + "'")
 
     def set_api_key(self):
         keys=["TOKEN_V2","PAGE_URL"]
