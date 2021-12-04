@@ -39,16 +39,16 @@ class TodoAPI:
         if len(title)==0:
             raise Exception("tilte is required")
         else:
-            self.pag.children.add_new(TodoBlock,title=title[0])
+            self.page.children.add_new(TodoBlock,title=title[0])
 
-    @pynvim.function("DeleteTodo")
+    @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
     def delete_todo(self,idx):
-        print("delete called idx:{}".format(idx))
-        child = self.page.children[idx]
+        self.echo("delete {}".format(str(idx)))
+        child = self.page.children[int(idx)]
         child.remove()
 
-    @pynvim.function("ToggleTodo")
+    @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
     def toggle_checked(self,idx):
-        print("toggle_cheched idx:{}".format(idx))
-        child = self.page.children[idx]
+        self.echo("toggle {}".format(str(idx)))
+        child = self.page.children[int(dx)]
         child.checked = not child.checked
