@@ -8,11 +8,12 @@ import pynvim
 class Main(object):
     def __init__(self,nvim):
         self.nvim=nvim
+
     @pynvim.function("DoItPython")
     def doItPython(self,args):
         self.vim.command('echo "Hello from python"')
 
-@neovim.plugin
+@pynvim.plugin
 class TodoManager:
     token_v2=None
     page_url=None
@@ -37,17 +38,17 @@ class TodoManager:
         cur_todos=[child.title for child in self.page.children]
         print(cur_todos)
 
-    @neovim.function("AddTodo")
+    @pynvim.function("AddTodo")
     def add_new_todo(self,title="test"):
         print("add called=>",title)
         self.page.children.add_new(TodoBlock,title=title)
 
-    @neovim.function("DeleteTodo")
+    @pynvim.function("DeleteTodo")
     def delete_todo(self,idx=0):
         child = self.page.children[idx]
         child.remove()
 
-    @neovim.function("ToggleTodo")
+    @pynvim.function("ToggleTodo")
     def toggle_checked(self,idx=0):
         child = self.page.children[idx]
         child.checked = not child.checked
