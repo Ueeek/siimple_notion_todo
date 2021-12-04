@@ -51,6 +51,7 @@ class TodoAPI:
 
     def show_list(self):
         self.nvim.command('setlocal modifiable')
+        self.nvim.current.buffer[:]
         for todo,checked in self.todo_list:
             if checked:
                 preseq="[x]:"
@@ -91,7 +92,7 @@ class TodoAPI:
         if cur_win_id==self.view_window_id:
             self.echo("you already todolist")
         elif self.nvim.call('win_gotoid',self.view_window_id):#fail=>ret False
-            self.echo("move to todolist")
+            self.echo("move to todolist id:{}".format(self.view_window_id))
             #move to already-opened window
         else:
             self.nvim.command('setlocal splitright')
