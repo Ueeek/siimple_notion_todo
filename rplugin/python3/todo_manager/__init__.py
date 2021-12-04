@@ -68,4 +68,4 @@ class TodoAPI:
         self.nvim.command('setlocal splitright')
         self.nvim.command('vnew')
         self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
-        self.prependTodos(self.todo_list).generate(self.nvim.current.window.width)
+        self.prependTodos().generate(self.nvim.current.window.width)
