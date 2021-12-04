@@ -73,9 +73,21 @@ class TodoAPI:
         #self.show_list()
         self.todoList()
 
+    def get_ith_todo(self,idx):
+        find_idx=-1
+        for child in self.page,children:
+            if isinstance(child,TodoBlock):
+                find_idx+=1
+            if find_idx==idx:
+                return child
+        return None
+
     @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
     def delete_todo(self,idx):
-        child = self.page.children[int(idx[0])]
+        idx=int(idx[0])
+        child = self.get_ith_todo(idx)
+        if child is None:
+            raise Exception("{}-th todo-item is not found".format(str(idx)))
         removing_title=child.title
         child.remove()
         self.echo("remove {}".format(removing_title))
@@ -86,7 +98,10 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
     def toggle_checked(self,idx):
-        child = self.page.children[int(idx[0])]
+        idx=int(idx[0])
+        child = self.get_ith_todo(idx)
+        if child is None:
+            raise Exception("{}-th todo-item is not found".format(str(idx)))
         child.checked = not child.checked
         self.update_list()
         #self.show_list()
