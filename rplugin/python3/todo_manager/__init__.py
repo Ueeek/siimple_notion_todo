@@ -17,10 +17,10 @@ class TodoAPI:
         self.set_api_key()
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
         self.page = self.client.get_block(self.keys["PAGE_URL"])
+        self.todo_list=self.get_members()
 
     def echo(self,msg):
-        self.nvim.command("echo 'fine'")
-        self.nvim.command("echo '" + str(msg) + "'")
+        self.nvim.command("echo '{}'".format(msg))
 
     def set_api_key(self):
         keys=["TOKEN_V2","PAGE_URL"]
@@ -40,13 +40,17 @@ class TodoAPI:
             raise Exception("tilte is required")
         else:
             self.page.children.add_new(TodoBlock,title=title[0])
+        self.echo("add {}".format(title[0]))
 
     @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
     def delete_todo(self,idx):
         child = self.page.children[int(idx[0])]
+        removing_title=child.title
         child.remove()
+        self.echo("remove {}".format(removing_title))
 
     @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
     def toggle_checked(self,idx):
-        child = self.page.children[int(dx)]
+        child = self.page.children[int(idx)]
         child.checked = not child.checked
+        self.echo("Toggle {}".format(child.title))
