@@ -19,7 +19,9 @@ class TodoAPI:
         self.page = self.client.get_block(self.keys["PAGE_URL"])
         update_list()
 
+
     def update_list(self):
+        self.page = self.client.get_block(self.keys["PAGE_URL"])
         self.todo_list=self.get_members()
 
     def echo(self,msg):
