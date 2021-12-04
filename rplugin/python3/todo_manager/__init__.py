@@ -18,6 +18,9 @@ class TodoAPI:
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
         self.page = self.client.get_block(self.keys["PAGE_URL"])
 
+    def echo(self,msg):
+        self.nvim.command("echo 'fine'")
+        self.nvim.command("echo '" + str(msg) + "'")
 
     def set_api_key(self):
         keys=["TOKEN_V2","PAGE_URL"]
@@ -45,5 +48,5 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
     def toggle_checked(self,idx):
-        child = self.page.children[int(dx[0])]
+        child = self.page.children[int(dx)]
         child.checked = not child.checked
