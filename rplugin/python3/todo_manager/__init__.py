@@ -4,6 +4,7 @@ from notion.block import PageBlock
 import json
 import pynvim
 import os
+from typing import List,Dict,Any
 
 
 _command_prefix="NotionTodo"
@@ -79,7 +80,10 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"TodoList")
     def todoList(self):
-        self.nvim.command('setlocal splitright')
-        self.nvim.command('vnew')
-        self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
+        if self.nvim.current.window is None:
+            self.nvim.command('setlocal splitright')
+            self.nvim.command('vnew')
+            self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
         self.show_list()
+
+
