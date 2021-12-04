@@ -12,8 +12,8 @@ class TodoManager:
     client=None
     page=None
 
-    def __init__(self,vim):
-        self.vim=vim
+    def __init__(self,nvim):
+        self.nvim=nvim
         self.read_json()
         self.client = NotionClient(token_v2=self.token_v2)
         self.page = self.client.get_block(self.page_url)
