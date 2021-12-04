@@ -36,10 +36,11 @@ class TodoAPI:
                 self.keys[key]=os.getenv("NOTION_TODO_{}".format(key))
 
     def get_members(self):
-        cur_todos=[(child.title,child.checked) for child in self.page.children]
+        cur_todos=[(child.title,child.checked) for child in self.page.children if isinstance(child,TodoBlock)]
+        
         return cur_todos
 
-    def prependTodos(self):
+    def show_list(self):
         self.nvim.command('setlocal modifiable')
         for todo,checked in self.todo_list:
             if checked:
@@ -70,7 +71,7 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
     def toggle_checked(self,idx):
-        child = self.page.children[int(idx)]
+        child = self.page.children[int(idx[0])]
         child.checked = not child.checked
         self.update_list()
         self.echo("Toggle {}".format(child.title))
@@ -80,4 +81,4 @@ class TodoAPI:
         self.nvim.command('setlocal splitright')
         self.nvim.command('vnew')
         self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
-        self.prependTodos()
+        self.show_list()
