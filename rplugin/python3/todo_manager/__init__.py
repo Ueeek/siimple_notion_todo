@@ -52,7 +52,7 @@ class TodoAPI:
     def show_list(self):
         self.echo("show_list called")
         self.nvim.command('setlocal modifiable')
-        self.nvim.current.buffer[:]
+        self.nvim.current.buffer[:]=[]
         for todo,checked in self.todo_list:
             if checked:
                 preseq="[x]:"
