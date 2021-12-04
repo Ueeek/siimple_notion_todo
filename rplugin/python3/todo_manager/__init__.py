@@ -29,7 +29,7 @@ class TodoAPI:
         cur_todos=[child.title for child in self.page.children]
         return cur_todos
 
-    @pynvim.function("AddTodo",nargs="+")
+    @pynvim.function("AddTodo")
     def add_new_todo(self,title):
         print("add called=>",title)
         self.page.children.add_new(TodoBlock,title=title)
