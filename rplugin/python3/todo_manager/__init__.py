@@ -30,12 +30,14 @@ class TodoAPI:
         return cur_todos
 
     @pynvim.function("AddTodo")
-    def add_new_todo(self,title):
-        print("add called=>",title)
-        self.page.children.add_new(TodoBlock,title=title)
+    def add_new_odo(self,title):
+        if len(title)==0:
+            raise Exception("tilte is required")
+        else:
+            self.pag.children.add_new(TodoBlock,title=title[0])
 
-    @pynvim.function("DeleteTodo")
-    def delete_todo(self,idx):
+    @pynvim.funcion("DeleteTodo")
+    def delete_tdo(self,idx):
         print("delete called idx:{}".format(idx))
         child = self.page.children[idx]
         child.remove()
