@@ -17,7 +17,7 @@ class TodoAPI:
         self.set_api_key()
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
         self.page = self.client.get_block(self.keys["PAGE_URL"])
-        update_list()
+        self.update_list()
 
 
     def update_list(self):
