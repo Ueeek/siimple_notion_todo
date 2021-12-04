@@ -93,7 +93,7 @@ class TodoAPI:
         elif self.view_window_id!=-1:
             self.echo("move to todolist")
             #move to already-opened window
-            self.nvim.command('win_gotoid',self.view_window_id)
+            self.nvim.call('win_gotoid',self.view_window_id)
         else:
             self.nvim.command('setlocal splitright')
             self.nvim.command('vnew')
