@@ -25,6 +25,9 @@ class TodoAPI:
         self.update_list()
 
 
+    def echo(self,msg:str):
+        self.nvim.command('echo "{}"'.format(msg))
+
     def update_list(self):
         self.page = self.client.get_block(self.keys["PAGE_URL"])
         self.todo_list=self.get_members()
