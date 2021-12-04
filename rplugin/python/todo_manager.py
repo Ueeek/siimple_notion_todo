@@ -2,8 +2,15 @@ from notion.client import NotionClient
 from notion.block import TodoBlock
 from notion.block import PageBlock
 import json
-import neovim
+import pynvim
 
+@pynvim.plugin
+class Main(object):
+    def __init__(self,nvim):
+        self.nvim=nvim
+    @pynvim.function("DoItPython")
+    def doItPython(self,args):
+        self.vim.command('echo "Hello from python"')
 
 @neovim.plugin
 class TodoManager:
