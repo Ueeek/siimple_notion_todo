@@ -75,7 +75,7 @@ class TodoAPI:
 
     def get_ith_todo(self,idx):
         find_idx=-1
-        for child in self.page,children:
+        for child in self.page.children:
             if isinstance(child,TodoBlock):
                 find_idx+=1
             if find_idx==idx:
