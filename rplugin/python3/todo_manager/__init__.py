@@ -10,7 +10,7 @@ import os
 class TodoAPI:
 
     def __init__(self,nvim):
-        self.keys={}
+        self.keys=dict()
         self.nvim=nvim
         self.set_api_key()
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
@@ -18,8 +18,8 @@ class TodoAPI:
         print("page=>",self.page)
 
     def set_api_key(self):
-        keys={"TOKEN_V2","PAGE_URL"}
-        for key in keys.keys():
+        keys=["TOKEN_V2","PAGE_URL"]
+        for key in keys:
             if os.getenv("NOTION_TODO_{}".format(key)) is None:
                 raise Exception("Required Environment variables are missing")
             else:
