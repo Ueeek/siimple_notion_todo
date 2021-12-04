@@ -35,7 +35,8 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"AddTodo",nargs=1)
     def add_new_odo(self,title):
-        self.echo(title)
+        self.echo(title[[0]])
+        self.echo(title[0])
         if len(title)==0:
             raise Exception("tilte is required")
         else:
