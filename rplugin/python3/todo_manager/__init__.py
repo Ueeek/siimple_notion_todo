@@ -90,6 +90,3 @@ class TodoAPI:
             self.nvim.command('vertical resize 30')
             self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
         self.show_list()
-
-
-oo
