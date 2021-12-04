@@ -2,11 +2,11 @@ from notion.client import NotionClient
 from notion.block import TodoBlock
 from notion.block import PageBlock
 import json
-import neovim
+import pynvim
 import os
 
 
-@neovim.plugin
+@pynvim.plugin
 class TodoAPI:
 
     def __init__(self,nvim):
@@ -31,7 +31,7 @@ class TodoAPI:
         cur_todos=[child.title for child in self.page.children]
         return cur_todos
 
-    @neovim.function("AddTodo",nargs=1)
+    @pynvim.command("AddTodo",nargs=1)
     def add_new_odo(self,title):
         self.echo(title)
         if len(title)==0:
@@ -39,13 +39,13 @@ class TodoAPI:
         else:
             self.pag.children.add_new(TodoBlock,title=title[0])
 
-    @neovim.function("DeleteTodo")
-    def delete_tdo(self,idx):
+    @pynvim.function("DeleteTodo")
+    def delete_todo(self,idx):
         print("delete called idx:{}".format(idx))
         child = self.page.children[idx]
         child.remove()
 
-    @neovim.function("ToggleTodo")
+    @pynvim.function("ToggleTodo")
     def toggle_checked(self,idx):
         print("toggle_cheched idx:{}".format(idx))
         child = self.page.children[idx]
