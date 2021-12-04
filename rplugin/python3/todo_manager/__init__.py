@@ -80,7 +80,7 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"TodoList")
     def todoList(self):
-        if self.nvim.current.window is None:
+        if self.nvim.current.window or True:
             self.nvim.command('setlocal splitright')
             self.nvim.command('vnew')
             self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
