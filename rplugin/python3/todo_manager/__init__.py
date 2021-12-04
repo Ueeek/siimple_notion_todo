@@ -36,7 +36,7 @@ class TodoAPI:
         else:
             self.pag.children.add_new(TodoBlock,title=title[0])
 
-    @pynvim.funcion("DeleteTodo")
+    @pynvim.function("DeleteTodo")
     def delete_tdo(self,idx):
         print("delete called idx:{}".format(idx))
         child = self.page.children[idx]
