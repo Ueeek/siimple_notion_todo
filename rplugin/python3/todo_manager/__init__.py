@@ -16,6 +16,7 @@ class TodoAPI:
     client:NotionClient
     page:Any
     todo_list:List
+    view_window_id:int
 
     def __init__(self,nvim:pynvim.Nvim):
         self.nvim=nvim
@@ -23,6 +24,8 @@ class TodoAPI:
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
         self.page = self.client.get_block(self.keys["PAGE_URL"])
         self.update_list()
+
+        self.view_window_id=-1
 
 
     def echo(self,msg:str):
@@ -84,9 +87,13 @@ class TodoAPI:
 
     @pynvim.command(_command_prefix+"TodoList")
     def todoList(self):
-        if True:
+        cur_win_id = self.nvim.command('echo win_getid()')
+        if cur_win_id==self.view_window_id:
+            pass
+        else:
             self.nvim.command('setlocal splitright')
             self.nvim.command('vnew')
             self.nvim.command('vertical resize 30')
             self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
+            self.view_window_id = self.nvim.command('echo win_getid()')
         self.show_list()
