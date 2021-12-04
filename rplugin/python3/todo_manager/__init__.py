@@ -37,11 +37,11 @@ class TodoAPI:
     def add_new_todo(self,title):
         self.echo("success")
         self.echo(title[0][0])
-        self.echo(title[0])
-        if len(title)==0:
-            raise Exception("tilte is required")
-        else:
-            self.page.children.add_new(TodoBlock,title=title[0][0])
+        #self.echo(title[0])
+        #if len(title)==0:
+        #    raise Exception("tilte is required")
+        #else:
+        #    self.page.children.add_new(TodoBlock,title=title[0][0])
 
     @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
     def delete_todo(self,idx):
