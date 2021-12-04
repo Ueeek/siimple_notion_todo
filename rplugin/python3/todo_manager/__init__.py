@@ -7,8 +7,8 @@ import pynvim
 @pynvim.plugin
 class Main(object):
     def __init__(self,nvim):
-        self.nvim.command('echo "Hello from python"')
         self.nvim=nvim
+        self.nvim.command('echo "Hello from python"')
 
     @pynvim.function("DoItPython",sync=True)
     def doItPython(self,args):
