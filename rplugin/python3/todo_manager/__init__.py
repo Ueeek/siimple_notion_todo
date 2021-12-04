@@ -70,6 +70,7 @@ class TodoAPI:
             self.page.children.add_new(TodoBlock,title=title[0])
         self.echo("add {}".format(title[0]))
         self.update_list()
+        #self.show_list()
         self.todoList()
 
     @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
@@ -79,6 +80,7 @@ class TodoAPI:
         child.remove()
         self.echo("remove {}".format(removing_title))
         self.update_list()
+        #self.show_list()
         self.todoList()
 
 
@@ -87,6 +89,7 @@ class TodoAPI:
         child = self.page.children[int(idx[0])]
         child.checked = not child.checked
         self.update_list()
+        #self.show_list()
         self.todoList()
         self.echo("Toggle {}".format(child.title))
 
@@ -105,4 +108,4 @@ class TodoAPI:
             self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber nomodifiable wrap')
             self.view_window_id = self.nvim.call('win_getid')
             self.echo("create todolist win_id={}".format(self.view_window_id))
-            self.show_list()
+        self.show_list()
