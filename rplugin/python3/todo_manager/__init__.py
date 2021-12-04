@@ -17,6 +17,9 @@ class TodoAPI:
         self.set_api_key()
         self.client = NotionClient(token_v2=self.keys["TOKEN_V2"])
         self.page = self.client.get_block(self.keys["PAGE_URL"])
+        update_list()
+
+    def update_list(self):
         self.todo_list=self.get_members()
 
     def echo(self,msg):
@@ -52,6 +55,7 @@ class TodoAPI:
         else:
             self.page.children.add_new(TodoBlock,title=title[0])
         self.echo("add {}".format(title[0]))
+        self.update_list()
 
     @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
     def delete_todo(self,idx):
@@ -59,12 +63,14 @@ class TodoAPI:
         removing_title=child.title
         child.remove()
         self.echo("remove {}".format(removing_title))
+        self.update_list()
 
 
     @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
     def toggle_checked(self,idx):
         child = self.page.children[int(idx)]
         child.checked = not child.checked
+        self.update_list()
         self.echo("Toggle {}".format(child.title))
 
     @pynvim.command(_command_prefix+"TodoList")
