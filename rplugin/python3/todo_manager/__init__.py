@@ -50,6 +50,7 @@ class TodoAPI:
         return cur_todos
 
     def show_list(self):
+        self.echo("show_list called")
         self.nvim.command('setlocal modifiable')
         self.nvim.current.buffer[:]
         for todo,checked in self.todo_list:
@@ -69,6 +70,7 @@ class TodoAPI:
             self.page.children.add_new(TodoBlock,title=title[0])
         self.echo("add {}".format(title[0]))
         self.update_list()
+        self.show_list()
 
     @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
     def delete_todo(self,idx):
@@ -77,6 +79,7 @@ class TodoAPI:
         child.remove()
         self.echo("remove {}".format(removing_title))
         self.update_list()
+        self.show_list()
 
 
     @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
@@ -84,6 +87,7 @@ class TodoAPI:
         child = self.page.children[int(idx[0])]
         child.checked = not child.checked
         self.update_list()
+        self.show_list()
         self.echo("Toggle {}".format(child.title))
 
     @pynvim.command(_command_prefix+"TodoList")
