@@ -6,6 +6,8 @@ import pynvim
 import os
 
 
+_command_prefix="NotionTodo"
+
 @pynvim.plugin
 class TodoAPI:
 
@@ -31,7 +33,7 @@ class TodoAPI:
         cur_todos=[child.title for child in self.page.children]
         return cur_todos
 
-    @pynvim.command("AddTodo",nargs=1)
+    @pynvim.command(_command_prefix+"AddTodo",nargs=1)
     def add_new_odo(self,title):
         self.echo(title)
         if len(title)==0:

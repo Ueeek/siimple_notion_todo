@@ -1,0 +1,23 @@
+" perl plugins
+
+
+" node plugins
+
+
+" python3 plugins
+call remote#host#RegisterPlugin('python3', '/Users/ueki/.cache/dein/.cache/init.vim/.dein/rplugin/python3/todo_manager', [
+      \ {'sync': v:false, 'name': 'AddTodo', 'type': 'command', 'opts': {'nargs': 1}},
+      \ {'sync': v:false, 'name': 'DeleteTodo', 'type': 'function', 'opts': {}},
+      \ {'sync': v:false, 'name': 'ToggleTodo', 'type': 'function', 'opts': {}},
+     \ ])
+call remote#host#RegisterPlugin('python3', '/Users/ueki/.cache/dein/repos/github.com/Shougo/defx.nvim/rplugin/python3/defx', [
+      \ {'sync': v:true, 'name': '_defx_init', 'type': 'function', 'opts': {}},
+     \ ])
+
+
+" ruby plugins
+
+
+" python plugins
+
+
