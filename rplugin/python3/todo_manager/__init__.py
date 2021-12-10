@@ -62,7 +62,7 @@ class TodoAPI:
         self.nvim.current.window.cursor=(1,1)
         self.nvim.command('setlocal nomodifiable')
 
-    @pynvim.command(_command_prefix+"AddTodo",nargs=1)
+    @pynvim.command(_command_prefix+"AddTodo",nargs=1,sync=True)
     def add_new_todo(self,title):
         if len(title)==0:
             raise Exception("tilte is required")
@@ -82,7 +82,7 @@ class TodoAPI:
                 return child
         return None
 
-    @pynvim.command(_command_prefix+"DeleteTodo",nargs=1)
+    @pynvim.command(_command_prefix+"DeleteTodo",nargs=1,sync=True)
     def delete_todo(self,idx):
         idx=int(idx[0])
         child = self.get_ith_todo(idx)
@@ -96,7 +96,7 @@ class TodoAPI:
         self.todoList()
 
 
-    @pynvim.command(_command_prefix+"ToggleTodo",nargs=1)
+    @pynvim.command(_command_prefix+"ToggleTodo",nargs=1,sync=True)
     def toggle_checked(self,idx):
         idx=int(idx[0])
         child = self.get_ith_todo(idx)
@@ -108,7 +108,7 @@ class TodoAPI:
         self.todoList()
         self.echo("Toggle {}".format(child.title))
 
-    @pynvim.command(_command_prefix+"TodoList")
+    @pynvim.command(_command_prefix+"TodoList",sync=True)
     def todoList(self):
         cur_win_id = self.nvim.call('win_getid')
         if cur_win_id==self.view_window_id:
