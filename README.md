@@ -4,7 +4,7 @@ A simple Neovim remote plugin for Todo-list Management on Notion
 You have to set some environment variables before use this
 ```
 export NOTION_TODO_TOKEN_V2=''
-export NOTION_TODO_PAGE_URLL=``
+export NOTION_TODO_PAGE_URL=''
 ```
 * token v2 is auth-token which you can find it in Cokkie of notion
 * PAGE_URL is the page url you use to this plugin
@@ -42,3 +42,10 @@ export NOTION_TODO_PAGE_URLL=``
 * TodoBlockにしか対応してないので、その他のobjは無視されます
 * nested Todoには対応してないです。
         
+# SCREENSHOT
+* notionこんな感じだと
+！[notion](https://user-images.githubusercontent.com/43738558/144712750-4846657b-a3ec-46a7-84ad-6ccea36ae1f9.png)
+* こんな感じで表示されて
+![show list](https://user-images.githubusercontent.com/43738558/144712752-7a9009ef-3347-4945-9eca-79b458149653.png)
+* Toggleでこんな感じになる
+![toggle](https://user-images.githubusercontent.com/43738558/144712756-de6b101f-4ba4-40f3-a58d-baa8dc0f55c7.png)
